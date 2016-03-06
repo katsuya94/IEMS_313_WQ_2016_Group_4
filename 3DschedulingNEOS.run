@@ -1,0 +1,14 @@
+option cplex_options 'mipgap=0.1 mipdisplay=3';
+solve;
+for {j in 1..N} {
+    for {t in 0..(T_max - 1),
+         x in 0..(board_W - 1),
+         y in 0..(board_H - 1):
+         ((x + W[j]) <= board_W) and
+         ((y + H[j]) <= board_H) and
+         ((t + T[j]) <= T_max)} {
+        if (X[j,t,x,y] = 1) then  {
+            display X[j,t,x,y]
+        }
+    }
+}
